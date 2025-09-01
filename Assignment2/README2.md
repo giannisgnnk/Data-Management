@@ -74,3 +74,78 @@ To transform a coordinate `(x, y)` to a **z-order code**, you can use the `inter
   1 node at level 3
 ```
 
+
+2. Write all the nodes of the tree to `Rtree.txt` **ordered by node IDs**.  
+
+**Node format:**
+```
+[isnonleaf, node-id, [[id1, MBR1], [id2, MBR2], …, [idn, MBRn]]]
+```
+
+
+- `isnonleaf = 1` → node is not a leaf  
+- `isnonleaf = 0` → node is a leaf  
+- Each `id` is either a **node ID** (points to a child node) or **object ID** (points to a polygon)  
+- `MBR = [x-low, x-high, y-low, y-high]` → Node or object bounding rectangle
+
+**Example first line of `Rtree.txt`:**
+
+```
+[0, 0, [[5868, [-170.844179, -170.707084, -14.373776, -14.287277]],
+..., [3060, [-157.850181, -157.848054, 21.301518, 21.303834]]]]
+```
+
+- The **last line** of the file should correspond to the **root node**.
+
+---
+
+## Part 2: Range Queries
+
+Implement a **range query evaluation** function in the R-Tree you created.  
+
+### Goal
+- The query range is defined by a **rectangle `W`**.  
+- The function should find all **MBRs that intersect `W`**.
+
+### Function Inputs
+- `nodeid` → ID of the **root node** of the R-tree  
+- `W` → Query rectangle in the form `[x-low, x-high, y-low, y-high]`  
+
+The function should calculate the results of the query using the R-tree.
+
+---
+
+### Test Data
+
+You are given the file `Rqueries.txt` containing queries of the form:
+
+```
+<x_low> <y_low> <x_high> <y_high>
+```
+
+
+- `x_low` → lower bound of the x-dimension of the query window  
+- `x_high` → upper bound of the x-dimension of the query window  
+- `y_low` → lower bound of the y-dimension of the query window  
+- `y_high` → upper bound of the y-dimension of the query window  
+
+---
+
+### Program Requirements
+
+1. The program should take as **command-line arguments**:
+   - The **R-tree file** created in Part 1  
+   - The `Rqueries.txt` query file
+2. Create the **tree** from the R-tree file.  
+3. Read and **execute queries sequentially** from the query file.  
+4. For each query, print to the output:
+   - The **query line number** (starting from 0)  
+   - The **number of results** in parentheses  
+   - The **IDs of the objects** whose MBR overlaps the query window (`filter step`)
+
+---
+
+### Example Output
+```
+0 (7): 2527,2712,8371,5042,7080,7656,7944
+```
