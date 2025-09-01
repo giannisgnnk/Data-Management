@@ -83,10 +83,11 @@ Write a program that reads the files `R_sorted.tsv` and `S_sorted.tsv` and calcu
   - Avoid writing duplicates to the output file.  
 
 ### Output Example
+```
   aa 11
   ab 33
   ab 45
-
+```
 
 ---
 
@@ -106,10 +107,11 @@ Write a program that reads the files `R_sorted.tsv` and `S_sorted.tsv` and calcu
   - Avoid writing duplicates to the output file.  
 
 ### Output Example
+```
   bb 94
   bh 10
   cl 41
-
+```
 
 ---
 
@@ -129,10 +131,11 @@ Write a program that reads the files `R_sorted.tsv` and `S_sorted.tsv` and calcu
   - Avoid writing duplicates to the output file.  
 
 ### Output Example
+```
   aa 11
   ab 33
   ab 90
-
+```
 
 ---
 
@@ -158,7 +161,9 @@ The grouping is based on the **first field** of each tuple, and the aggregation 
    - If two tuples being merged are identical in the **first field**, then create a **single tuple** with the **sum of the second fields**.  
 
 ### Output Example
+```
   aa 11
   ab 123
   ac 54
   ad 46
+```
