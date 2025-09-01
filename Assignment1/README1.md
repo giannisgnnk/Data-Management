@@ -37,7 +37,8 @@ The result should be written to a file `RjoinS.tsv`.
 - Output tuple:  
     aa 33 45
 
-```The output tuples are written to RjoinS.tsv separated by tabs, for example:
+The output tuples are written to RjoinS.tsv separated by tabs, for example:
+```
   ab 33 45 
   ab 33 48 
   ab 90 45.
