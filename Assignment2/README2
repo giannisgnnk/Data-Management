@@ -1,1 +1,76 @@
+# Assignment: Building and Using an R-Tree for Spatial Data
+
+The goal of this assignment is to build and use an **R-tree index** for spatial data.
+
+---
+
+## Part 1: Building an R-Tree through Bulk Loading
+
+You are asked to write a program that will **build an R-Tree** for a set of polygons, which you will read from two text files.
+
+Your program should:
+
+1. Calculate the **Minimum Bounding Rectangles (MBRs)** of the objects.  
+2. Perform **bulk loading** of the tree after sorting the MBRs using a **space-filling curve**, specifically the **z-order curve**.
+
+> **Note:** Space-filling curves map a multidimensional vector to a single-dimensional value. Objects that are close together spatially are likely to be mapped to close values. Consequently, MBRs that are close together are likely to be placed in the same leaf of the tree.
+
+More information:  
+- [Space-filling curve - Wikipedia](https://en.wikipedia.org/wiki/Space-filling_curve)  
+- [Z-order curve - Wikipedia](https://en.wikipedia.org/wiki/Z-order_curve)
+
+---
+
+### Input Files
+
+You are given two input files:
+
+- `coords.txt` → Contains coordinates of points in the form `<x>,<y>`.  
+- `offsets.txt` → Contains records in the form `<id>,<startOffset>,<endOffset>` where:
+  - `id` → Unique identifier of a polygon object  
+  - `startOffset` / `endOffset` → Line numbers in `coords.txt` marking the start/end of the points forming each object
+
+---
+
+### Program Requirements
+
+1. **Read the two files** and find the coordinates for each object.  
+2. Calculate the **MBR** of each object.  
+3. Transform the **center of each MBR** to calculate its **z-order curve value**.  
+4. **Sort the MBRs** based on the z-order values.  
+5. "Package" the MBRs into **leaves** and recursively build the next levels of the R-tree up to the **root**.  
+   - For levels above leaves, you do **not** need to redo z-order sorting.  
+6. **Node capacity:**  
+   - Maximum: 20 records per node  
+   - Minimum: 0.4 × 20 = 8 records per node  
+   - Last node adjustment: If fewer than 8, adjust to exactly 8 and reduce the previous node to < 20.  
+   - **Root node:** Can have 2 to 20 children.  
+7. **Leaf nodes:** Contain records of the form `[id, MBR]`  
+   - `MBR = [x-low, x-high, y-low, y-high]`  
+8. **Non-leaf nodes:** Contain records of the form `[id, MBR]`  
+   - `id` → Node ID  
+   - `MBR` → Bounding rectangle covering all child records
+
+---
+
+### Z-Order Transformation
+
+To transform a coordinate `(x, y)` to a **z-order code**, you can use the `interleave_latlng` function from:  
+- [pymorton.py](https://github.com/trevorprater/pymorton/blob/master/pymorton/pymorton.py)  
+
+> Call it as `interleave_latlng(y, x)` to get a z-value in alphanumeric form.  
+> Sort your MBRs based on these alphanumeric values.
+
+---
+
+### Program Output
+
+1. Print the **number of nodes per level**:
+
+```
+  500 nodes at level 0
+  25 nodes at level 1
+  2 nodes at level 2
+  1 node at level 3
+```
 
