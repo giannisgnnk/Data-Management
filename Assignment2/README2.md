@@ -149,3 +149,43 @@ You are given the file `Rqueries.txt` containing queries of the form:
 ```
 0 (7): 2527,2712,8371,5042,7080,7656,7944
 ```
+
+
+---
+
+## Part 3: Nearest Neighbor Queries (kNN Queries)
+
+Implement the **best-first search algorithm** to retrieve the nearest MBR object to a reference point `q`.  
+
+- Use an **incremental nearest neighbor search**.  
+- Organize **R-tree node entries** in a **priority queue**.  
+- The priority queue should include both **node MBRs** and **object MBRs**.  
+- When an **object MBR leaves the queue**, it is the **next nearest MBR** to `q`.
+
+---
+
+### Function Requirements
+
+- The function should take the **ID of the tree root** as an argument.  
+- It should calculate and print the **k closest object-IDs** to a query point `q = (x, y)`.
+
+---
+
+### Program Requirements
+
+1. The program should take as **command-line arguments**:
+   - The **R-tree file** created in Part 1  
+   - The `NNqueries.txt` query file  
+   - The number `k` → number of nearest neighbors to return  
+2. Create the **R-tree** from the contents of the R-tree file.  
+3. Read and **execute queries sequentially** from the query file.  
+4. For each query, print:
+   - The **query line number** (starting from 0)  
+   - The **IDs of the k nearest object MBRs** at the query point
+
+---
+
+### Example Output (for k=10)
+```
+0: 9311,7001,803,5361,6764,3905,1642,3260,4669,5762
+```
