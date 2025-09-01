@@ -38,8 +38,8 @@ The result should be written to a file `RjoinS.tsv`.
     aa 33 45
 
 The output tuples are written to RjoinS.tsv separated by tabs, for example:
-  ab 33 45
-  ab 33 48
+  ab 33 45 \n
+  ab 33 48 /n
   ab 90 45.
 
 
@@ -65,8 +65,6 @@ Your program must **faithfully implement the merge-join algorithm**:
 
 ---
 
-
----
 
 ## Part 2: Union
 
